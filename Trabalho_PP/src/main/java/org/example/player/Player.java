@@ -8,81 +8,114 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 public class Player implements IPlayer {
+    private int age;
+    private LocalDate birthDate;
+    private float height;
     private String name;
+    private String nationality;
+    private int number;
+    private int passing;
+    private String photo;
+    private IPlayerPosition position;
+    private PreferredFoot preferredFoot;
+    private int shooting;
+    private int speed;
+    private int stamina;
+    private float weight;
+
+    public Player(int age, LocalDate birthDate, float height, String name, String nationality, int number, int passing, String photo, IPlayerPosition position, PreferredFoot preferredFoot, int shooting, int speed, int stamina, float weight) {
+        this.age = age;
+        this.birthDate = birthDate;
+        this.height = height;
+        this.name = name;
+        this.nationality = nationality;
+        this.number = number;
+        this.passing = passing;
+        this.photo = photo;
+        this.position = position;
+        this.preferredFoot = preferredFoot;
+        this.shooting = shooting;
+        this.speed = speed;
+        this.stamina = stamina;
+        this.weight = weight;
+    }
 
     @Override
     public String getName() {
-        return "";
+        return name;
     }
 
     @Override
     public LocalDate getBirthDate() {
-        return null;
+        return birthDate;
     }
 
     @Override
     public int getAge() {
-        return 0;
+        return age;
     }
 
     @Override
     public String getNationality() {
-        return "";
+        return nationality;
     }
 
     @Override
     public void setPosition(IPlayerPosition iPlayerPosition) {
-
+        if (iPlayerPosition == null) {
+            throw new IllegalArgumentException("Position cannot be null");
+        }
+        this.position = iPlayerPosition;
     }
 
     @Override
     public String getPhoto() {
-        return "";
+        return photo;
     }
 
     @Override
     public int getNumber() {
-        return 0;
+        return number;
     }
 
     @Override
     public int getShooting() {
-        return 0;
+        return shooting;
     }
 
     @Override
     public int getPassing() {
-        return 0;
+        return passing;
     }
 
     @Override
     public int getStamina() {
-        return 0;
+        return stamina;
     }
 
     @Override
     public int getSpeed() {
-        return 0;
+        return speed;
     }
 
     @Override
     public IPlayerPosition getPosition() {
-        return null;
+        return position;
     }
 
     @Override
     public float getHeight() {
-        return 0;
+        return height;
     }
 
     @Override
     public float getWeight() {
-        return 0;
+        return weight;
     }
 
     @Override
     public PreferredFoot getPreferredFoot() {
-        return null;
+        return preferredFoot;
     }
 
     @Override
