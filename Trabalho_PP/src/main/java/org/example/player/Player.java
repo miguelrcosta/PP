@@ -42,22 +42,22 @@ public class Player implements IPlayer {
 
     @Override
     public String getName() {
-        return name;
+        return this.name;
     }
 
     @Override
     public LocalDate getBirthDate() {
-        return birthDate;
+        return this.birthDate;
     }
 
     @Override
     public int getAge() {
-        return age;
+        return this.age;
     }
 
     @Override
     public String getNationality() {
-        return nationality;
+        return this.nationality;
     }
 
     @Override
@@ -70,52 +70,52 @@ public class Player implements IPlayer {
 
     @Override
     public String getPhoto() {
-        return photo;
+        return this.photo;
     }
 
     @Override
     public int getNumber() {
-        return number;
+        return this.number;
     }
 
     @Override
     public int getShooting() {
-        return shooting;
+        return this.shooting;
     }
 
     @Override
     public int getPassing() {
-        return passing;
+        return this.passing;
     }
 
     @Override
     public int getStamina() {
-        return stamina;
+        return this.stamina;
     }
 
     @Override
     public int getSpeed() {
-        return speed;
+        return this.speed;
     }
 
     @Override
     public IPlayerPosition getPosition() {
-        return position;
+        return this.position;
     }
 
     @Override
     public float getHeight() {
-        return height;
+        return this.height;
     }
 
     @Override
     public float getWeight() {
-        return weight;
+        return this.weight;
     }
 
     @Override
     public PreferredFoot getPreferredFoot() {
-        return preferredFoot;
+        return this.preferredFoot;
     }
 
     @Override
