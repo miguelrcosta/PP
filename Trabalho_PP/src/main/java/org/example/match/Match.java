@@ -8,7 +8,7 @@ import com.ppstudios.footballmanager.api.contracts.team.ITeam;
 import java.io.IOException;
 
 public class Match implements IMatch {
-    
+
     @Override
     public IClub getHomeClub() {
         return null;
