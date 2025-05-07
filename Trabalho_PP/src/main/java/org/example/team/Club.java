@@ -73,12 +73,54 @@ public class Club implements IClub {
 
     @Override
     public boolean isPlayer(IPlayer player) {
-        // Check if the player is already in the club
+        if (player == null) {
+            throw new IllegalArgumentException("Player cannot be null.");
+        }
+
+        if (player.getName() == null || player.getName().isEmpty()) {
+            throw new IllegalArgumentException("Invalid player: name is missing.");
+        }
+
+        for (int i = 0; i < this.playerCount; i++) {
+            if (this.players[i].equals(player)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public boolean isValid() {
-        // Check if the club has a valid name, country, and founded year
+        if (this.name == null || this.name.isEmpty() ||
+                this.country == null || this.country.isEmpty() ||
+                this.foundedYear <= 1800) {
+            throw new IllegalStateException("Club is empty or has invalid name, country, or founded year.");
+        }
+
+        if (this.playerCount == 0) {
+            throw new IllegalStateException("Club has no players.");
+        }
+
+        int goalkeepers = 0;
+        int totalPlayers = 0;
+
+        for (int i = 0; i < this.playerCount; i++) {
+            IPlayer player = this.players[i];
+            if (player.getPosition().getDescription().equalsIgnoreCase("Goalkeeper")) {
+                goalkeepers++;
+            }
+            totalPlayers++;
+        }
+
+        if (goalkeepers == 0) {
+            throw new IllegalStateException("Club has no goalkeeper.");
+        }
+
+        if (totalPlayers < 16) {
+            throw new IllegalStateException("Club must have at least 16 players.");
+        }
+
+        return true;
     }
 
     @Override
@@ -125,9 +167,9 @@ public class Club implements IClub {
         return this.logo;
     }
 
-    @Override
+   @Override
     public IPlayer selectPlayer(IPlayerSelector selector, IPlayerPosition position) {
-        //
+        return null; // ta mal
     }
 
     @Override
