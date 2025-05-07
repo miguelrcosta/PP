@@ -167,9 +167,40 @@ public class Club implements IClub {
         return this.logo;
     }
 
-   @Override
+    @Override
     public IPlayer selectPlayer(IPlayerSelector selector, IPlayerPosition position) {
-        return null; // ta mal
+        if (position == null) {
+            throw new IllegalArgumentException("Position cannot be null.");
+        }
+
+        if (playerCount == 0) {
+            throw new IllegalStateException("Club is empty.");
+        }
+
+        IPlayer[] playersByPosition = playersInPosition(position);
+        if (playersByPosition.length == 0) {
+            throw new IllegalStateException("No player found for the specified position.");
+        }
+
+        return selector.selectPlayer(this, position);
+    }
+
+    private IPlayer[] playersInPosition(IPlayerPosition position) {
+        int count = 0;
+        for (int i = 0; i < playerCount; i++) {
+            if (players[i].getPosition().getDescription().equalsIgnoreCase(position.getDescription())) {
+                count++;
+            }
+        }
+
+        IPlayer[] result = new IPlayer[count];
+        int index = 0;
+        for (int i = 0; i < playerCount; i++) {
+            if (players[i].getPosition().getDescription().equalsIgnoreCase(position.getDescription())) {
+                result[index++] = players[i];
+            }
+        }
+        return result;
     }
 
     @Override
