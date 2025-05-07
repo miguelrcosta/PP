@@ -106,7 +106,7 @@ public class Club implements IClub {
 
         for (int i = 0; i < this.playerCount; i++) {
             IPlayer player = this.players[i];
-            if (player.getPosition().getDescription().equalsIgnoreCase("Goalkeeper")) {
+            if (player.getPosition().getDescription().equalsIgnoreCase("GK")) {
                 goalkeepers++;
             }
             totalPlayers++;

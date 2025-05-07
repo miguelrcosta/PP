@@ -9,78 +9,124 @@ import java.io.IOException;
 
 public class Match implements IMatch {
 
+    private static final int MAX_EVENTS = 500;
+
+    private IClub homeClub;
+    private IClub awayClub;
+    private ITeam homeTeam;
+    private ITeam awayTeam;
+    private int round;
+    private boolean played;
+    private IEvent[] events = new IEvent[MAX_EVENTS];
+    private int eventCount = 0;
+
     @Override
     public IClub getHomeClub() {
-        return null;
+        if (homeClub == null) throw new IllegalStateException("Home club is not initialized.");
+        return homeClub;
     }
 
     @Override
     public IClub getAwayClub() {
-        return null;
+        if (awayClub == null) throw new IllegalStateException("Away club is not initialized.");
+        return awayClub;
     }
 
     @Override
     public boolean isPlayed() {
-        return false;
+        return played;
     }
 
     @Override
     public ITeam getHomeTeam() {
-        return null;
+        if (homeTeam == null) throw new IllegalStateException("Home team is not initialized.");
+        return homeTeam;
     }
 
     @Override
     public ITeam getAwayTeam() {
-        return null;
+        if (awayTeam == null) throw new IllegalStateException("Away team is not initialized.");
+        return awayTeam;
     }
 
     @Override
     public void setPlayed() {
-
+        this.played = true;
     }
 
     @Override
-    public int getTotalByEvent(Class aClass, IClub iClub) {
-        return 0;
+    public int getTotalByEvent(Class eventClass, IClub team) {
+        if (eventClass == null || team == null) throw new IllegalArgumentException("Event class and team cannot be null.");
+
+        int count = 0;
+        for (int i = 0; i < eventCount; i++) {
+            if (events[i] != null && events[i].getClass().equals(eventClass)) {
+                // Simplificação: contar todos os eventos da classe (não temos como ligar ao clube diretamente)
+                count++;
+            }
+        }
+        return count;
     }
 
     @Override
     public boolean isValid() {
-        return false;
+        return homeTeam != null && awayTeam != null &&
+                homeClub != null && awayClub != null &&
+                !homeTeam.equals(awayTeam);
     }
 
     @Override
     public ITeam getWinner() {
+        // Como não tens GoalEvent, apenas retorna null (empate)
+        // Ou podes parametrizar qual classe conta como “golo” no simulador
         return null;
     }
 
     @Override
     public int getRound() {
-        return 0;
+        return round;
     }
 
     @Override
-    public void setTeam(ITeam iTeam) {
-
+    public void setTeam(ITeam team) {
+        if (team == null) throw new IllegalArgumentException("Team cannot be null.");
+        if (played) throw new IllegalStateException("Cannot set team after match is played.");
+        if (homeTeam == null) {
+            homeTeam = team;
+            homeClub = team.getClub();
+        } else if (awayTeam == null) {
+            awayTeam = team;
+            awayClub = team.getClub();
+        } else {
+            throw new IllegalStateException("Both teams are already set.");
+        }
     }
 
     @Override
     public void exportToJson() throws IOException {
-
+        // Optional: Implement export logic
     }
 
     @Override
-    public void addEvent(IEvent iEvent) {
-
+    public void addEvent(IEvent event) {
+        if (event == null) throw new IllegalArgumentException("Event cannot be null.");
+        if (eventCount >= MAX_EVENTS) {
+            throw new IllegalStateException("Maximum number of events reached.");
+        }
+        events[eventCount++] = event;
     }
 
     @Override
     public IEvent[] getEvents() {
-        return new IEvent[0];
+        IEvent[] result = new IEvent[eventCount];
+        for (int i = 0; i < eventCount; i++) {
+            result[i] = events[i];
+        }
+        return result;
     }
 
     @Override
     public int getEventCount() {
-        return 0;
+        return eventCount;
     }
 }

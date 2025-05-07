@@ -5,6 +5,7 @@ import com.ppstudios.footballmanager.api.contracts.player.IPlayerPosition;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.team.IFormation;
 import com.ppstudios.footballmanager.api.contracts.team.ITeam;
+import org.example.player.PlayerPosition;
 
 import java.io.IOException;
 
@@ -101,7 +102,14 @@ public class Team implements ITeam {
         if (formation == null || position == null) {
             return false;
         }
-        return formation.containsPosition(position);
+
+        IPlayerPosition[] allowedPositions = getAllowedPositionsByDescription(formation.getDisplayName());
+        for (IPlayerPosition p : allowedPositions) {
+            if (p.getDescription().equals(position.getDescription())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -111,7 +119,7 @@ public class Team implements ITeam {
         }
         int totalStrength = 0;
         for (int i = 0; i < playerCount; i++) {
-            totalStrength += players[i].getAttributes().getOverall();
+            totalStrength += players[i].getShooting() + players[i].getPassing() + players[i].getSpeed();
         }
         return totalStrength / playerCount;
     }
@@ -119,5 +127,41 @@ public class Team implements ITeam {
     @Override
     public void exportToJson() throws IOException {
         // Implement JSON export logic if needed, or leave empty if handled by external tool
+    }
+
+    /**
+     * Private helper method to map allowed positions for a given formation description.
+     */
+    private IPlayerPosition[] getAllowedPositionsByDescription(String description) {
+        if (description.equals("4-4-2")) {
+            return new IPlayerPosition[]{
+                    new PlayerPosition("GK"),
+                    new PlayerPosition("RB"),
+                    new PlayerPosition("CB"),
+                    new PlayerPosition("CB"),
+                    new PlayerPosition("LB"),
+                    new PlayerPosition("RM"),
+                    new PlayerPosition("CM"),
+                    new PlayerPosition("CM"),
+                    new PlayerPosition("LM"),
+                    new PlayerPosition("ST"),
+                    new PlayerPosition("ST")
+            };
+        } else if (description.equals("3-5-2")) {
+            return new IPlayerPosition[]{
+                    new PlayerPosition("GK"),
+                    new PlayerPosition("CB"),
+                    new PlayerPosition("CB"),
+                    new PlayerPosition("CB"),
+                    new PlayerPosition("RM"),
+                    new PlayerPosition("CM"),
+                    new PlayerPosition("CM"),
+                    new PlayerPosition("LM"),
+                    new PlayerPosition("CAM"),
+                    new PlayerPosition("ST"),
+                    new PlayerPosition("ST")
+            };
+        }
+        return new IPlayerPosition[0];
     }
 }
