@@ -7,21 +7,27 @@ import com.ppstudios.footballmanager.api.contracts.team.IFormation;
 import com.ppstudios.footballmanager.api.contracts.team.ITeam;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 public class Team implements ITeam {
+
     private static final int MAX_PLAYERS = 11;
 
     private IClub club;
     private IFormation formation;
-    private IPlayer[] players = new IPlayer[MAX_PLAYERS];
-    private int playerCount = 0;
+    private IPlayer[] players;
+    private int playerCount;
 
-    public Team(IClub club) {
+    public Team(IClub club, IFormation formation) {
         if (club == null) {
             throw new IllegalArgumentException("Club cannot be null.");
         }
+        if (formation == null) {
+            throw new IllegalArgumentException("Formation cannot be null.");
+        }
         this.club = club;
+        this.formation = formation;
+        this.players = new IPlayer[MAX_PLAYERS];
+        this.playerCount = 0;
     }
 
     @Override
@@ -38,8 +44,20 @@ public class Team implements ITeam {
     }
 
     @Override
+    public void setFormation(IFormation formation) {
+        if (formation == null) {
+            throw new IllegalArgumentException("Formation cannot be null.");
+        }
+        this.formation = formation;
+    }
+
+    @Override
     public IPlayer[] getPlayers() {
-        return Arrays.copyOf(players, playerCount);
+        IPlayer[] copy = new IPlayer[playerCount];
+        for (int i = 0; i < playerCount; i++) {
+            copy[i] = players[i];
+        }
+        return copy;
     }
 
     @Override
@@ -47,26 +65,20 @@ public class Team implements ITeam {
         if (player == null) {
             throw new IllegalArgumentException("Player cannot be null.");
         }
-
         if (formation == null) {
             throw new IllegalStateException("Formation is not set.");
         }
-
         if (playerCount >= MAX_PLAYERS) {
             throw new IllegalStateException("Team is full.");
         }
-
+        if (!club.isPlayer(player)) {
+            throw new IllegalStateException("Player does not belong to the club.");
+        }
         for (int i = 0; i < playerCount; i++) {
             if (players[i].equals(player)) {
                 throw new IllegalStateException("Player is already in the team.");
             }
         }
-
-        boolean playerInClub = Arrays.stream(club.getPlayers()).anyMatch(p -> p.equals(player));
-        if (!playerInClub) {
-            throw new IllegalStateException("Player does not belong to the club.");
-        }
-
         players[playerCount++] = player;
     }
 
@@ -75,7 +87,6 @@ public class Team implements ITeam {
         if (position == null) {
             throw new IllegalArgumentException("Position cannot be null.");
         }
-
         int count = 0;
         for (int i = 0; i < playerCount; i++) {
             if (players[i].getPosition().equals(position)) {
@@ -87,10 +98,10 @@ public class Team implements ITeam {
 
     @Override
     public boolean isValidPositionForFormation(IPlayerPosition position) {
-        if (formation == null) {
+        if (formation == null || position == null) {
             return false;
         }
-        return formation.getClass().contains(position);
+        return formation.containsPosition(position);
     }
 
     @Override
@@ -98,25 +109,15 @@ public class Team implements ITeam {
         if (playerCount == 0) {
             return 0;
         }
-
         int totalStrength = 0;
         for (int i = 0; i < playerCount; i++) {
-            totalStrength += players[i].getAttributes().getOverall(); // assuming getOverall() returns int (0–100)
+            totalStrength += players[i].getAttributes().getOverall();
         }
-
         return totalStrength / playerCount;
     }
 
     @Override
-    public void setFormation(IFormation formation) {
-        if (formation == null) {
-            throw new IllegalArgumentException("Formation cannot be null.");
-        }
-        this.formation = formation;
-    }
-
-    @Override
     public void exportToJson() throws IOException {
-        // Implement JSON export logic based on your environment or leave empty if handled elsewhere
+        // Implement JSON export logic if needed, or leave empty if handled by external tool
     }
 }
