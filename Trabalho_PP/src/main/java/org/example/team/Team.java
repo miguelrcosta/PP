@@ -135,31 +135,31 @@ public class Team implements ITeam {
     private IPlayerPosition[] getAllowedPositionsByDescription(String description) {
         if (description.equals("4-4-2")) {
             return new IPlayerPosition[]{
-                    new PlayerPosition("GK"),
-                    new PlayerPosition("RB"),
-                    new PlayerPosition("CB"),
-                    new PlayerPosition("CB"),
-                    new PlayerPosition("LB"),
-                    new PlayerPosition("RM"),
-                    new PlayerPosition("CM"),
-                    new PlayerPosition("CM"),
-                    new PlayerPosition("LM"),
-                    new PlayerPosition("ST"),
-                    new PlayerPosition("ST")
+                    new PlayerPosition("GR"),
+                    new PlayerPosition("DD"),
+                    new PlayerPosition("DC"),
+                    new PlayerPosition("DC"),
+                    new PlayerPosition("DE"),
+                    new PlayerPosition("MD"),
+                    new PlayerPosition("MC"),
+                    new PlayerPosition("MC"),
+                    new PlayerPosition("ME"),
+                    new PlayerPosition("PL"),
+                    new PlayerPosition("PL")
             };
         } else if (description.equals("3-5-2")) {
             return new IPlayerPosition[]{
-                    new PlayerPosition("GK"),
-                    new PlayerPosition("CB"),
-                    new PlayerPosition("CB"),
-                    new PlayerPosition("CB"),
-                    new PlayerPosition("RM"),
-                    new PlayerPosition("CM"),
-                    new PlayerPosition("CM"),
-                    new PlayerPosition("LM"),
-                    new PlayerPosition("CAM"),
-                    new PlayerPosition("ST"),
-                    new PlayerPosition("ST")
+                    new PlayerPosition("GR"),
+                    new PlayerPosition("DC"),
+                    new PlayerPosition("DC"),
+                    new PlayerPosition("DC"),
+                    new PlayerPosition("MD"),
+                    new PlayerPosition("MC"),
+                    new PlayerPosition("MC"),
+                    new PlayerPosition("ME"),
+                    new PlayerPosition("MO"),
+                    new PlayerPosition("PL"),
+                    new PlayerPosition("PL")
             };
         }
         return new IPlayerPosition[0];
