@@ -15,7 +15,7 @@ public class Event implements IEvent {
             throw new IllegalArgumentException("Description cannot be null or empty.");
         }
         if (minute < 0 || minute > 90) {
-            throw new IllegalArgumentException("Minute must be between 0 and 120.");
+            throw new IllegalArgumentException("Minute must be between 0 and 90.");
         }
         this.description = description;
         this.minute = minute;
@@ -23,12 +23,12 @@ public class Event implements IEvent {
 
     @Override
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     @Override
     public int getMinute() {
-        return minute;
+        return this.minute;
     }
 
     @Override
