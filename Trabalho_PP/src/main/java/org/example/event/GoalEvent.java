@@ -24,7 +24,7 @@ public class GoalEvent implements IGoalEvent {
 
     @Override
     public IPlayer getPlayer() {
-        return player;
+        return this.player;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class GoalEvent implements IGoalEvent {
 
     @Override
     public int getMinute() {
-        return minute;
+        return this.minute;
     }
 
     @Override

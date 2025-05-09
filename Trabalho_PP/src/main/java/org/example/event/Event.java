@@ -23,12 +23,12 @@ public class Event implements IEvent {
 
     @Override
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     @Override
     public int getMinute() {
-        return minute;
+        return this.minute;
     }
 
     @Override

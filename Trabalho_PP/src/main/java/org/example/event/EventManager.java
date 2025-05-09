@@ -34,6 +34,6 @@ public class EventManager implements IEventManager {
 
     @Override
     public int getEventCount() {
-        return eventCount;
+        return this.eventCount;
     }
 }
