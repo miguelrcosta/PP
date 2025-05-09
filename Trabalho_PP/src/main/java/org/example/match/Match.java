@@ -77,9 +77,16 @@ public class Match implements IMatch {
 
     @Override
     public ITeam getWinner() {
-        // Como não tens GoalEvent, apenas retorna null (empate)
-        // Ou podes parametrizar qual classe conta como “golo” no simulador
-        return null;
+        int homeGoals = getTotalByEvent(com.ppstudios.footballmanager.api.contracts.event.IGoalEvent.class, homeClub);
+        int awayGoals = getTotalByEvent(com.ppstudios.footballmanager.api.contracts.event.IGoalEvent.class, awayClub);
+
+        if (homeGoals > awayGoals) {
+            return homeTeam;
+        } else if (awayGoals > homeGoals) {
+            return awayTeam;
+        } else {
+            return null; // empate
+        }
     }
 
     @Override

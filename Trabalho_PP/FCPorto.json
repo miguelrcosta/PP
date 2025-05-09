@@ -1,0 +1,92 @@
+{
+  "squad": [
+    {
+      "name": "PlayerFCP0",
+      "birthDate": "2000-01-01",
+      "nationality": "Portugal",
+      "basePosition": "GK",
+      "photo": "photo.png",
+      "number": 0
+    },
+    {
+      "name": "PlayerFCP1",
+      "birthDate": "2000-01-01",
+      "nationality": "Portugal",
+      "basePosition": "GK",
+      "photo": "photo.png",
+      "number": 1
+    },
+    {
+      "name": "PlayerFCP2",
+      "birthDate": "2000-01-01",
+      "nationality": "Portugal",
+      "basePosition": "GK",
+      "photo": "photo.png",
+      "number": 2
+    },
+    {
+      "name": "PlayerFCP3",
+      "birthDate": "2000-01-01",
+      "nationality": "Portugal",
+      "basePosition": "GK",
+      "photo": "photo.png",
+      "number": 3
+    },
+    {
+      "name": "PlayerFCP4",
+      "birthDate": "2000-01-01",
+      "nationality": "Portugal",
+      "basePosition": "GK",
+      "photo": "photo.png",
+      "number": 4
+    },
+    {
+      "name": "PlayerFCP5",
+      "birthDate": "2000-01-01",
+      "nationality": "Portugal",
+      "basePosition": "GK",
+      "photo": "photo.png",
+      "number": 5
+    },
+    {
+      "name": "PlayerFCP6",
+      "birthDate": "2000-01-01",
+      "nationality": "Portugal",
+      "basePosition": "GK",
+      "photo": "photo.png",
+      "number": 6
+    },
+    {
+      "name": "PlayerFCP7",
+      "birthDate": "2000-01-01",
+      "nationality": "Portugal",
+      "basePosition": "GK",
+      "photo": "photo.png",
+      "number": 7
+    },
+    {
+      "name": "PlayerFCP8",
+      "birthDate": "2000-01-01",
+      "nationality": "Portugal",
+      "basePosition": "GK",
+      "photo": "photo.png",
+      "number": 8
+    },
+    {
+      "name": "PlayerFCP9",
+      "birthDate": "2000-01-01",
+      "nationality": "Portugal",
+      "basePosition": "GK",
+      "photo": "photo.png",
+      "number": 9
+    },
+    {
+      "name": "PlayerFCP10",
+      "birthDate": "2000-01-01",
+      "nationality": "Portugal",
+      "basePosition": "GK",
+      "photo": "photo.png",
+      "number": 10
+    }
+  ]
+}
