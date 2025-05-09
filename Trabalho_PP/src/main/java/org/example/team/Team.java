@@ -7,6 +7,7 @@ import com.ppstudios.footballmanager.api.contracts.team.IFormation;
 import com.ppstudios.footballmanager.api.contracts.team.ITeam;
 import org.example.player.PlayerPosition;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class Team implements ITeam {
@@ -126,8 +127,37 @@ public class Team implements ITeam {
 
     @Override
     public void exportToJson() throws IOException {
-        // Implement JSON export logic if needed, or leave empty if handled by external tool
+        StringBuilder json = new StringBuilder();
+        json.append("{\n");
+        json.append("  \"squad\": [\n");
+
+        IPlayer[] players = getPlayers();
+        for (int i = 0; i < players.length; i++) {
+            IPlayer p = players[i];
+            json.append("    {\n");
+            json.append(String.format("      \"name\": \"%s\",\n", p.getName()));
+            json.append(String.format("      \"birthDate\": \"%s\",\n", p.getBirthDate()));
+            json.append(String.format("      \"nationality\": \"%s\",\n", p.getNationality()));
+            json.append(String.format("      \"basePosition\": \"%s\",\n", p.getPosition().getDescription()));
+            json.append(String.format("      \"photo\": \"%s\",\n", p.getPhoto()));
+            json.append(String.format("      \"number\": %d\n", p.getNumber()));
+            json.append("    }");
+            if (i < players.length - 1) {
+                json.append(",");
+            }
+            json.append("\n");
+        }
+
+        json.append("  ]\n");
+        json.append("}");
+
+        String fileName = club.getName().replaceAll("\\s+", "") + ".json";
+        FileOutputStream fout = new FileOutputStream(fileName);
+        fout.write(json.toString().getBytes());
+        fout.close();
     }
+
+
 
     /**
      * Private helper method to map allowed positions for a given formation description.

@@ -5,7 +5,9 @@ import com.ppstudios.footballmanager.api.contracts.player.IPlayerPosition;
 import com.ppstudios.footballmanager.api.contracts.team.IPlayerSelector;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+
 
 public class Club implements IClub {
     private static final int MAX_PLAYERS = 33;
@@ -205,6 +207,22 @@ public class Club implements IClub {
 
     @Override
     public void exportToJson() throws IOException {
+        StringBuilder json = new StringBuilder();
+        json.append("{\n");
+        json.append(String.format("  \"name\": \"%s\",\n", name));
+        json.append(String.format("  \"code\": \"%s\",\n", code));
+        json.append(String.format("  \"country\": \"%s\",\n", country));
+        json.append(String.format("  \"founded\": %d,\n", foundedYear));
+        json.append("  \"isNationalTeam\": false,\n");
+        json.append(String.format("  \"stadium\": \"%s\",\n", stadiumName));
+        json.append(String.format("  \"logo\": \"%s\"\n", logo));
+        json.append("}");
 
+        String fileName = name.replaceAll("\\s+", "") + ".json";
+        FileOutputStream fout = new FileOutputStream(fileName);
+        fout.write(json.toString().getBytes());
+        fout.close();
     }
+
+
 }

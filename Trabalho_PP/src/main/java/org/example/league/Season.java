@@ -170,13 +170,12 @@ public class Season implements ISeason {
 
     @Override
     public IStanding[] getLeagueStandings() {
-        // Stub — you need to implement standings manually based on matches
         return new IStanding[0];
     }
 
     @Override
     public ISchedule getSchedule() {
-        return null; // Optional: you can implement your own ISchedule
+        return null;
     }
 
     @Override

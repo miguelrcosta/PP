@@ -1,0 +1,12 @@
+{
+  "squad": [
+    {
+      "name": "André Gomes",
+      "birthDate": "2004-10-20",
+      "nationality": "Portuguese",
+      "basePosition": "Goalkeeper",
+      "photo": "https://www.slbenfica.pt/pt-pt/players/andre-gomes",
+      "number": 75
+    }
+  ]
+}

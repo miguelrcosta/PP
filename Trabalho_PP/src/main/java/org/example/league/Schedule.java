@@ -99,7 +99,7 @@ public class Schedule implements ISchedule {
         }
 
         IMatch match = allMatches[matchIndex];
-        match.setTeam(team); // API says match handles setting home/away logic
+        match.setTeam(team);
     }
 
     @Override
