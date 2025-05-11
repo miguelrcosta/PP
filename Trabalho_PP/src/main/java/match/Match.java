@@ -61,7 +61,6 @@ public class Match implements IMatch {
         int count = 0;
         for (int i = 0; i < eventCount; i++) {
             if (events[i] != null && events[i].getClass().equals(eventClass)) {
-                // Simplificação: contar todos os eventos da classe (não temos como ligar ao clube diretamente)
                 count++;
             }
         }
@@ -111,7 +110,6 @@ public class Match implements IMatch {
 
     @Override
     public void exportToJson() throws IOException {
-        // Optional: Implement export logic
     }
 
     @Override

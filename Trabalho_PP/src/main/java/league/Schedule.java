@@ -14,7 +14,7 @@ public class Schedule implements ISchedule {
     private IMatch[] allMatches = new IMatch[MAX_MATCHES];
     private int matchCount = 0;
 
-    private int[] matchIndexesByRound = new int[MAX_MATCHES]; // parallel array for round mapping
+    private int[] matchIndexesByRound = new int[MAX_MATCHES];
     private int currentRound = 0;
 
     public boolean addMatchToRound(IMatch match, int round) {
@@ -30,6 +30,18 @@ public class Schedule implements ISchedule {
 
     @Override
     public IMatch[] getMatchesForRound(int round) {
+        if (round < 0 || round >= MAX_ROUNDS) {
+            throw new IllegalArgumentException("Invalid round number.");
+        }
+
+        if (allMatches == null) {
+            throw new IllegalStateException("Schedule is not initialized.");
+        }
+
+        if (matchCount == 0) {
+            throw new IllegalStateException("No matches are set.");
+        }
+
         int count = 0;
         for (int i = 0; i < matchCount; i++) {
             if (matchIndexesByRound[i] == round) {
@@ -50,7 +62,17 @@ public class Schedule implements ISchedule {
 
     @Override
     public IMatch[] getMatchesForTeam(ITeam team) {
-        if (team == null) return new IMatch[0];
+        if (team == null) {
+            throw new IllegalArgumentException("Team cannot be null.");
+        }
+
+        if (allMatches == null) {
+            throw new IllegalStateException("Schedule is not initialized.");
+        }
+
+        if (matchCount == 0) {
+            throw new IllegalStateException("No matches are set.");
+        }
 
         int count = 0;
         for (int i = 0; i < matchCount; i++) {
@@ -72,6 +94,7 @@ public class Schedule implements ISchedule {
         return result;
     }
 
+
     @Override
     public int getNumberOfRounds() {
         int maxRound = 0;
@@ -85,12 +108,17 @@ public class Schedule implements ISchedule {
 
     @Override
     public IMatch[] getAllMatches() {
+        if (allMatches == null) {
+            throw new IllegalStateException("Schedule is not initialized.");
+        }
+
         IMatch[] result = new IMatch[matchCount];
         for (int i = 0; i < matchCount; i++) {
             result[i] = allMatches[i];
         }
         return result;
     }
+
 
     @Override
     public void setTeam(ITeam team, int matchIndex) {
