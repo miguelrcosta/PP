@@ -13,7 +13,7 @@ import java.io.IOException;
 public class Season implements ISeason {
 
     private static final int MAX_TEAMS = 20;
-    private static final int MAX_MATCHES = MAX_TEAMS * (MAX_TEAMS - 1); // Each team plays all others once
+    private static final int MAX_MATCHES = MAX_TEAMS * (MAX_TEAMS - 1);
     private static final int POINTS_PER_WIN = 3;
     private static final int POINTS_PER_DRAW = 1;
     private static final int POINTS_PER_LOSS = 0;
@@ -37,23 +37,34 @@ public class Season implements ISeason {
         return this.year;
     }
 
+
     @Override
     public boolean addClub(IClub club) {
-        if (club == null || clubCount >= MAX_TEAMS) return false;
+        if (club == null) {
+            throw new IllegalArgumentException("Club cannot be null.");
+        }
 
         for (int i = 0; i < clubCount; i++) {
             if (clubs[i].equals(club)) {
-                return false;
+                throw new IllegalArgumentException("Club is already in the league.");
             }
         }
 
+        if (clubCount >= MAX_TEAMS) {
+            throw new IllegalStateException("The league is full.");
+        }
+
         clubs[clubCount++] = club;
+
+
         return true;
     }
 
     @Override
     public boolean removeClub(IClub club) {
-        if (club == null) return false;
+        if (club == null) {
+            throw new IllegalArgumentException("Club cannot be null.");
+        }
 
         for (int i = 0; i < clubCount; i++) {
             if (clubs[i].equals(club)) {
@@ -61,16 +72,29 @@ public class Season implements ISeason {
                     clubs[j] = clubs[j + 1];
                 }
                 clubs[--clubCount] = null;
+
                 return true;
             }
         }
 
-        return false;
+        throw new IllegalStateException("Club is not in the league.");
     }
+
 
     @Override
     public void generateSchedule() {
+        if (clubCount == 0) {
+            throw new IllegalStateException("Cannot generate schedule: the league is empty.");
+        }
+
+        for (int i = 0; i < matchCount; i++) {
+            if (matches[i] != null && matches[i].isPlayed()) {
+                throw new IllegalStateException("Cannot generate schedule: a match has already been played.");
+            }
+        }
+
         matchCount = 0;
+
         for (int i = 0; i < clubCount; i++) {
             for (int j = 0; j < clubCount; j++) {
                 if (i != j) {
@@ -112,6 +136,14 @@ public class Season implements ISeason {
 
     @Override
     public void simulateRound() {
+        if (clubCount == 0) {
+            throw new IllegalStateException("Cannot simulate round: the league is empty.");
+        }
+
+        if (matchCount == 0) {
+            throw new IllegalStateException("Cannot simulate round: the schedule has not been generated.");
+        }
+
         if (simulator == null) {
             throw new IllegalStateException("Match simulator strategy is not set.");
         }
@@ -123,15 +155,26 @@ public class Season implements ISeason {
                 match.setPlayed();
             }
         }
+
         currentRound++;
     }
 
+
     @Override
     public void simulateSeason() {
+        if (clubCount == 0) {
+            throw new IllegalStateException("Cannot simulate season: the league is empty.");
+        }
+
+        if (matchCount == 0) {
+            throw new IllegalStateException("Cannot simulate season: the league is not scheduled.");
+        }
+
         while (!isSeasonComplete()) {
             simulateRound();
         }
     }
+
 
     @Override
     public int getCurrentRound() {
@@ -180,18 +223,28 @@ public class Season implements ISeason {
 
     @Override
     public int getPointsPerWin() {
+        if (simulator == null) {
+            throw new IllegalStateException("Match simulator is not initialized.");
+        }
         return POINTS_PER_WIN;
     }
 
     @Override
     public int getPointsPerDraw() {
+        if (simulator == null) {
+            throw new IllegalStateException("Match simulator is not initialized.");
+        }
         return POINTS_PER_DRAW;
     }
 
     @Override
     public int getPointsPerLoss() {
+        if (simulator == null) {
+            throw new IllegalStateException("Match simulator is not initialized.");
+        }
         return POINTS_PER_LOSS;
     }
+
 
     @Override
     public String getName() {
