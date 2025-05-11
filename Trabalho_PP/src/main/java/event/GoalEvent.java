@@ -14,7 +14,7 @@ public class GoalEvent implements IGoalEvent {
         if (player == null) {
             throw new IllegalArgumentException("Player cannot be null.");
         }
-        if (minute < 0 || minute > 120) {
+        if (minute < 0 || minute > 90) {
             throw new IllegalArgumentException("Minute must be between 0 and 120.");
         }
 

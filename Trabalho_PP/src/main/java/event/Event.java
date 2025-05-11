@@ -12,7 +12,7 @@ public class Event implements IEvent {
 
     public Event(String description, int minute) {
         if (description == null || description.isEmpty()) {
-            throw new IllegalArgumentException("Description cannot be null or empty.");
+            throw new IllegalArgumentException("Description can't be null or empty.");
         }
         if (minute < 0 || minute > 90) {
             throw new IllegalArgumentException("Minute must be between 0 and 90.");
@@ -33,15 +33,7 @@ public class Event implements IEvent {
 
     @Override
     public void exportToJson() throws IOException {
-        String json = "{\n" +
-                "  \"description\": \"" + description + "\",\n" +
-                "  \"minute\": " + minute + "\n" +
-                "}";
-
-        String fileName = "event_" + minute + "_" + description.replaceAll("\\s+", "_") + ".json";
-        FileOutputStream fos = new FileOutputStream(fileName);
-        fos.write(json.getBytes());
-        fos.close();
+        // Implementar mais tarde
     }
 }
 

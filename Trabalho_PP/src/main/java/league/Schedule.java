@@ -8,13 +8,13 @@ import java.io.IOException;
 
 public class Schedule implements ISchedule {
 
-    private static final int MAX_MATCHES = 380;
-    private static final int MAX_ROUNDS = 38;
+    private static final int MAX_MATCHES = 652;
+    private static final int MAX_ROUNDS = 34;
 
     private IMatch[] allMatches = new IMatch[MAX_MATCHES];
     private int matchCount = 0;
 
-    private int[] matchIndexesByRound = new int[MAX_MATCHES]; // parallel array for round mapping
+    private int[] matchIndexesByRound = new int[MAX_MATCHES];
     private int currentRound = 0;
 
     public boolean addMatchToRound(IMatch match, int round) {

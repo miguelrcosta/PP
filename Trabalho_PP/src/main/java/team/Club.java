@@ -33,11 +33,11 @@ public class Club implements IClub {
 
     @Override
     public void addPlayer(IPlayer player) {
-        if (player == null) {
-            throw new IllegalArgumentException("Player cannot be null.");
-        }
         if (playerCount >= MAX_PLAYERS) {
             throw new IllegalStateException("Maximum number of players reached.");
+        }
+        if (player == null) {
+            throw new IllegalArgumentException("Player cannot be null.");
         }
         if (isPlayer(player)) {
             throw new IllegalArgumentException("Player already exists in the club.");
@@ -93,9 +93,7 @@ public class Club implements IClub {
 
     @Override
     public boolean isValid() {
-        if (this.name == null || this.name.isEmpty() ||
-                this.country == null || this.country.isEmpty() ||
-                this.foundedYear <= 1800) {
+        if (this.name == null || this.name.isEmpty() || this.country == null || this.country.isEmpty() || this.foundedYear <= 1800) {
             throw new IllegalStateException("Club is empty or has invalid name, country, or founded year.");
         }
 
@@ -108,7 +106,7 @@ public class Club implements IClub {
 
         for (int i = 0; i < this.playerCount; i++) {
             IPlayer player = this.players[i];
-            if (player.getPosition().getDescription().equalsIgnoreCase("GK")) {
+            if (player.getPosition().getDescription().equalsIgnoreCase("GR")) {
                 goalkeepers++;
             }
             totalPlayers++;
@@ -175,13 +173,13 @@ public class Club implements IClub {
             throw new IllegalArgumentException("Position cannot be null.");
         }
 
-        if (playerCount == 0) {
-            throw new IllegalStateException("Club is empty.");
-        }
-
         IPlayer[] playersByPosition = playersInPosition(position);
         if (playersByPosition.length == 0) {
             throw new IllegalStateException("No player found for the specified position.");
+        }
+
+        if (playerCount == 0) {
+            throw new IllegalStateException("Club is empty.");
         }
 
         return selector.selectPlayer(this, position);
@@ -207,21 +205,7 @@ public class Club implements IClub {
 
     @Override
     public void exportToJson() throws IOException {
-        StringBuilder json = new StringBuilder();
-        json.append("{\n");
-        json.append(String.format("  \"name\": \"%s\",\n", name));
-        json.append(String.format("  \"code\": \"%s\",\n", code));
-        json.append(String.format("  \"country\": \"%s\",\n", country));
-        json.append(String.format("  \"founded\": %d,\n", foundedYear));
-        json.append("  \"isNationalTeam\": false,\n");
-        json.append(String.format("  \"stadium\": \"%s\",\n", stadiumName));
-        json.append(String.format("  \"logo\": \"%s\"\n", logo));
-        json.append("}");
-
-        String fileName = name.replaceAll("\\s+", "") + ".json";
-        FileOutputStream fout = new FileOutputStream(fileName);
-        fout.write(json.toString().getBytes());
-        fout.close();
+        // Implementar mais tarde
     }
 
 

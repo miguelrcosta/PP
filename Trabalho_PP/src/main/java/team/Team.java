@@ -67,19 +67,20 @@ public class Team implements ITeam {
         if (player == null) {
             throw new IllegalArgumentException("Player cannot be null.");
         }
-        if (formation == null) {
-            throw new IllegalStateException("Formation is not set.");
-        }
+
         if (playerCount >= MAX_PLAYERS) {
             throw new IllegalStateException("Team is full.");
-        }
-        if (!club.isPlayer(player)) {
-            throw new IllegalStateException("Player does not belong to the club.");
         }
         for (int i = 0; i < playerCount; i++) {
             if (players[i].equals(player)) {
                 throw new IllegalStateException("Player is already in the team.");
             }
+        }
+        if (!club.isPlayer(player)) {
+            throw new IllegalStateException("Player does not belong to the team.");
+        }
+        if (formation == null) {
+            throw new IllegalStateException("Formation is not set.");
         }
         players[playerCount++] = player;
     }
@@ -118,50 +119,24 @@ public class Team implements ITeam {
         if (playerCount == 0) {
             return 0;
         }
+
         int totalStrength = 0;
+
         for (int i = 0; i < playerCount; i++) {
-            totalStrength += players[i].getShooting() + players[i].getPassing() + players[i].getSpeed();
+            totalStrength += players[i].getShooting();
+            totalStrength += players[i].getPassing();
+            totalStrength += players[i].getSpeed();
+            totalStrength += players[i].getStamina();
         }
-        return totalStrength / playerCount;
+
+        return totalStrength / (playerCount * 4);
     }
 
     @Override
     public void exportToJson() throws IOException {
-        StringBuilder json = new StringBuilder();
-        json.append("{\n");
-        json.append("  \"squad\": [\n");
-
-        IPlayer[] players = getPlayers();
-        for (int i = 0; i < players.length; i++) {
-            IPlayer p = players[i];
-            json.append("    {\n");
-            json.append(String.format("      \"name\": \"%s\",\n", p.getName()));
-            json.append(String.format("      \"birthDate\": \"%s\",\n", p.getBirthDate()));
-            json.append(String.format("      \"nationality\": \"%s\",\n", p.getNationality()));
-            json.append(String.format("      \"basePosition\": \"%s\",\n", p.getPosition().getDescription()));
-            json.append(String.format("      \"photo\": \"%s\",\n", p.getPhoto()));
-            json.append(String.format("      \"number\": %d\n", p.getNumber()));
-            json.append("    }");
-            if (i < players.length - 1) {
-                json.append(",");
-            }
-            json.append("\n");
-        }
-
-        json.append("  ]\n");
-        json.append("}");
-
-        String fileName = club.getName().replaceAll("\\s+", "") + ".json";
-        FileOutputStream fout = new FileOutputStream(fileName);
-        fout.write(json.toString().getBytes());
-        fout.close();
+        // Implementar mais tarde
     }
 
-
-
-    /**
-     * Private helper method to map allowed positions for a given formation description.
-     */
     private IPlayerPosition[] getAllowedPositionsByDescription(String description) {
         if (description.equals("4-4-2")) {
             return new IPlayerPosition[]{

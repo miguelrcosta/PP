@@ -1,102 +1,111 @@
 package main;
 
-import event.*;
-import league.Season;
-import match.Match;
 import player.Player;
 import player.PlayerPosition;
-import team.*;
+import team.Club;
+import team.Team;
+
+import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
+import com.ppstudios.footballmanager.api.contracts.player.IPlayerPosition;
 import com.ppstudios.footballmanager.api.contracts.player.PreferredFoot;
+import com.ppstudios.footballmanager.api.contracts.team.IFormation;
+
 import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
+        Club club = new Club("FCF", "Portugal", 1952, "logo.png", "FC Felgueiras", "Estádio Dr. Machado de Matos");
+
+        // Criar 16 jogadores
+        IPlayer[] jogadores = new IPlayer[]{
+                new Player(30, LocalDate.of(1994, 3, 1), 1.90f, "Tiago Lopes", "Portugal", 1, 60, "tiago.jpg", new PlayerPosition("GR"), PreferredFoot.Both, 40, 50, 70, 82.0f),
+                new Player(26, LocalDate.of(1998, 7, 2), 1.80f, "Nuno Ferreira", "Portugal", 2, 65, "nuno.jpg", new PlayerPosition("DD"), PreferredFoot.Both, 50, 60, 75, 76.0f),
+                new Player(28, LocalDate.of(1996, 2, 15), 1.85f, "Pedro Oliveira", "Portugal", 3, 75, "pedro.jpg", new PlayerPosition("DC"), PreferredFoot.Both, 60, 70, 80, 80.0f),
+                new Player(29, LocalDate.of(1995, 6, 10), 1.86f, "João Pires", "Brasil", 4, 70, "joao.jpg", new PlayerPosition("DC"), PreferredFoot.Both, 63, 72, 78, 79.5f),
+                new Player(27, LocalDate.of(1997, 5, 9), 1.77f, "Miguel Reis", "Portugal", 5, 68, "miguel.jpg", new PlayerPosition("DE"), PreferredFoot.Both, 58, 66, 79, 74.0f),
+                new Player(25, LocalDate.of(1999, 3, 12), 1.78f, "Marco Teixeira", "Brasil", 6, 88, "marco.jpg", new PlayerPosition("MD"), PreferredFoot.Both, 72, 82, 85, 73.5f),
+                new Player(24, LocalDate.of(2000, 1, 5), 1.81f, "Luís Gomes", "Angola", 7, 82, "luis.jpg", new PlayerPosition("MC"), PreferredFoot.Both, 70, 85, 80, 78.0f),
+                new Player(23, LocalDate.of(2001, 9, 14), 1.80f, "Carlos Silva", "Portugal", 8, 85, "carlos.jpg", new PlayerPosition("MC"), PreferredFoot.Both, 75, 84, 82, 75.0f),
+                new Player(22, LocalDate.of(2002, 11, 7), 1.74f, "Bruno Costa", "Brasil", 9, 80, "bruno.jpg", new PlayerPosition("ME"), PreferredFoot.Both, 78, 86, 87, 72.0f),
+                new Player(30, LocalDate.of(1993, 10, 20), 1.89f, "Carlos Ramos", "Espanha", 10, 60, "carlosr.jpg", new PlayerPosition("PL"), PreferredFoot.Left, 91, 84, 75, 85.0f),
+                new Player(27, LocalDate.of(1997, 12, 3), 1.83f, "Rui Mendes", "Moçambique", 11, 75, "rui.jpg", new PlayerPosition("PL"), PreferredFoot.Left, 87, 81, 77, 81.0f),
+                new Player(21, LocalDate.of(2003, 4, 17), 1.76f, "Fábio Leite", "Portugal", 12, 60, "fabio.jpg", new PlayerPosition("DC"), PreferredFoot.Left, 55, 65, 78, 74.5f),
+                new Player(28, LocalDate.of(1996, 8, 29), 1.88f, "André Castro", "Portugal", 13, 90, "andre.jpg", new PlayerPosition("MO"), PreferredFoot.Left, 85, 90, 86, 79.0f),
+                new Player(25, LocalDate.of(1999, 2, 25), 1.84f, "Tiago Neves", "Portugal", 14, 66, "tiagoneves.jpg", new PlayerPosition("MC"), PreferredFoot.Left, 68, 75, 82, 77.0f),
+                new Player(26, LocalDate.of(1998, 6, 1), 1.79f, "Eduardo Viana", "Brasil", 15, 78, "eduardo.jpg", new PlayerPosition("DD"), PreferredFoot.Left, 70, 78, 81, 76.0f),
+                new Player(31, LocalDate.of(1993, 1, 13), 1.91f, "Henrique Lopes", "Portugal", 16, 55, "henrique.jpg", new PlayerPosition("GR"), PreferredFoot.Right, 40, 58, 74, 83.0f)
+        };
+
+        // Adicionar jogadores ao clube
+        for (IPlayer jogador : jogadores) {
+            club.addPlayer(jogador);
+        }
+
+        // Validar clube
         try {
-            // Criar posições
-            PlayerPosition goleiro = new PlayerPosition("GK");
-            PlayerPosition atacante = new PlayerPosition("PL");
+            club.isValid();
+            System.out.println("Clube válido com " + club.getPlayerCount() + " jogadores.");
+        } catch (Exception e) {
+            System.out.println("Erro ao validar clube: " + e.getMessage());
+        }
 
-            // Criar jogadores
-            Player p1 = new Player(25, LocalDate.of(2000, 1, 1), 1.80f, "João", "Portugal", 10, 80, "joao.jpg", goleiro, PreferredFoot.Right, 50, 60, 70, 75f);
-            Player p2 = new Player(27, LocalDate.of(1998, 5, 12), 1.75f, "Miguel", "Brasil", 9, 85, "miguel.jpg", atacante, PreferredFoot.Left, 90, 85, 80, 70f);
-
-            // Criar clubes
-            Club club1 = new Club("FCP", "Portugal", 1893, "fcp_logo.png", "FC Porto", "Dragão");
-            Club club2 = new Club("SLB", "Portugal", 1904, "slb_logo.png", "SL Benfica", "Luz");
-
-            // Adicionar jogadores ao clube
-            for (int i = 0; i < 16; i++) {
-                club1.addPlayer(new Player(20 + i, LocalDate.of(2000, 1, 1), 1.80f, "PlayerFCP" + i, "Portugal", i, 70, "photo.png", goleiro, PreferredFoot.Right, 70, 70, 70, 75f));
-                club2.addPlayer(new Player(20 + i, LocalDate.of(2000, 1, 1), 1.80f, "PlayerSLB" + i, "Portugal", i, 70, "photo.png", goleiro, PreferredFoot.Right, 70, 70, 70, 75f));
+        // Formação 4-4-2
+        IFormation formacao442 = new IFormation() {
+            @Override
+            public String getDisplayName() {
+                return "4-4-2";
             }
 
-            // Validar clubes
-            System.out.println("FC Porto válido? " + club1.isValid());
-            System.out.println("SL Benfica válido? " + club2.isValid());
-
-            // Criar formações
-            Formation f442 = new Formation("4-4-2");
-
-            // Criar times
-            Team team1 = new Team(club1, f442);
-            Team team2 = new Team(club2, f442);
-
-            // Adicionar jogadores ao time
-            for (int i = 0; i < 11; i++) {
-                team1.addPlayer(club1.getPlayers()[i]);
-                team2.addPlayer(club2.getPlayers()[i]);
+            @Override
+            public int getTacticalAdvantage(IFormation other) {
+                return 0;
             }
+        };
 
-            // Criar partida
-            Match match = new Match();
-            match.setTeam(team1);
-            match.setTeam(team2);
+        Team team = new Team(club, formacao442);
 
-            // Adicionar eventos
-            GoalEvent goal1 = new GoalEvent(p1, 10);
-            GoalEvent goal2 = new GoalEvent(p2, 55);
-            match.addEvent(goal1);
-            match.addEvent(goal2);
+        // Posições a preencher
+        String[] posicoes = {"GR", "DD", "DC", "DC", "DE", "MD", "MC", "MC", "ME", "PL", "PL"};
+        IPlayer[] jaEscolhidos = new IPlayer[11];
+        int escolhidos = 0;
 
-            // Marcar partida como jogada
-            match.setPlayed();
+        for (String desc : posicoes) {
+            IPlayerPosition posicao = new PlayerPosition(desc);
+            IPlayer escolhido = null;
 
-            // Exibir vencedor
-            System.out.println("Vencedor: " + (match.getWinner() != null ? match.getWinner().getClub().getName() : "Empate"));
-
-            // Criar campeonato
-            Season season = new Season(2025);
-            season.addClub(club1);
-            season.addClub(club2);
-            season.generateSchedule();
-
-            // Simular rodada
-            season.setMatchSimulator(m -> {
-                m.addEvent(new GoalEvent(p1, 15));
-                m.addEvent(new GoalEvent(p2, 30));
-                m.setPlayed();
-            });
-            season.simulateRound();
-
-            // Exibir partidas
-            for (var m : season.getMatches()) {
-                System.out.println(season.displayMatchResult(m));
-                for (var e : m.getEvents()) {
-                    System.out.println("  Evento: " + e.getDescription());
+            IPlayer[] candidatos = club.getPlayers();
+            for (IPlayer candidato : candidatos) {
+                if (candidato.getPosition().equals(posicao)) {
+                    // Verifica se já foi usado
+                    boolean jaUsado = false;
+                    for (int i = 0; i < escolhidos; i++) {
+                        if (jaEscolhidos[i] == candidato) {
+                            jaUsado = true;
+                            break;
+                        }
+                    }
+                    if (!jaUsado) {
+                        escolhido = candidato;
+                        break;
+                    }
                 }
             }
 
-            // Exportar para JSON (alguns são opcionais no seu código)
-            club1.exportToJson();
-            team1.exportToJson();
-            goal1.exportToJson();
-            match.exportToJson();
-            season.exportToJson();
+            if (escolhido == null) {
+                throw new IllegalStateException("Nenhum jogador disponível para a posição: " + desc);
+            }
 
-            System.out.println("Exportação para JSON concluída.");
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            team.addPlayer(escolhido);
+            jaEscolhidos[escolhidos++] = escolhido;
         }
+
+        // Mostrar equipa
+        System.out.println("\nEquipa Titular:");
+        for (IPlayer j : team.getPlayers()) {
+            System.out.println("- " + j.getName() + " | " + j.getPosition().getDescription());
+        }
+
+        // Força
+        System.out.println("\nForça média da equipa: " + team.getTeamStrength());
     }
 }

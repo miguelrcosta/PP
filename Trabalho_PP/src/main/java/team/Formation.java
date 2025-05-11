@@ -17,7 +17,7 @@ public class Formation implements IFormation {
     @Override
     public int getTacticalAdvantage(IFormation formation) {
         if (formation == null) {
-            throw new IllegalStateException("A formação tática não foi definida.");
+            throw new IllegalStateException("Formation didn't set");
         }
         if (this.displayName.equals("4-4-2") && formation.getDisplayName().equals("3-5-2")) {
             return 1;
