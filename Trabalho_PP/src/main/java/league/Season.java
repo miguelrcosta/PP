@@ -286,6 +286,6 @@ public class Season implements ISeason {
 
     @Override
     public void exportToJson() throws IOException {
-        // Optional implementation
+        // Implementar mais tarde
     }
 }

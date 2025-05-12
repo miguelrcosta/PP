@@ -2,7 +2,6 @@ package event;
 
 import com.ppstudios.footballmanager.api.contracts.event.IEvent;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class Event implements IEvent {

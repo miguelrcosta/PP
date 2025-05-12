@@ -7,7 +7,6 @@ import com.ppstudios.footballmanager.api.contracts.team.IFormation;
 import com.ppstudios.footballmanager.api.contracts.team.ITeam;
 import player.PlayerPosition;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class Team implements ITeam {
@@ -134,7 +133,7 @@ public class Team implements ITeam {
 
     @Override
     public void exportToJson() throws IOException {
-        // Implementar mais tarde
+        // Fazer mais tarde
     }
 
     private IPlayerPosition[] getAllowedPositionsByDescription(String description) {

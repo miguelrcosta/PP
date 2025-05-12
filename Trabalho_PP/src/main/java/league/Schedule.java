@@ -132,6 +132,6 @@ public class Schedule implements ISchedule {
 
     @Override
     public void exportToJson() throws IOException {
-        // Implementar para depois
+        // Implementar mais tarde
     }
 }
