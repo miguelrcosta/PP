@@ -13,7 +13,7 @@ public class EventManager implements IEventManager {
     @Override
     public void addEvent(IEvent event) {
         if (event == null) {
-            throw new IllegalArgumentException("Event cannot be null.");
+            throw new IllegalArgumentException("Event can't be null.");
         }
 
         if (eventCount >= MAX_EVENTS) {

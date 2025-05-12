@@ -16,6 +16,7 @@ public class Formation implements IFormation {
 
     @Override
     public int getTacticalAdvantage(IFormation formation) {
+        // Melhorar a lógica de formação tática
         if (formation == null) {
             throw new IllegalStateException("Formation didn't set");
         }

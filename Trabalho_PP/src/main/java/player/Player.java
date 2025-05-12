@@ -63,7 +63,7 @@ public class Player implements IPlayer {
     @Override
     public void setPosition(IPlayerPosition iPlayerPosition) {
         if (iPlayerPosition == null) {
-            throw new IllegalArgumentException("Position cannot be null");
+            throw new IllegalArgumentException("Position can't be null");
         }
         this.position = iPlayerPosition;
     }
@@ -120,6 +120,6 @@ public class Player implements IPlayer {
 
     @Override
     public void exportToJson() throws IOException {
-
+        // Implementar mais tarde
     }
 }

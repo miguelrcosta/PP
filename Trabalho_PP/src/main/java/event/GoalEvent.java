@@ -15,7 +15,7 @@ public class GoalEvent implements IGoalEvent {
             throw new IllegalArgumentException("Player can't be null.");
         }
         if (minute < 0 || minute > 90) {
-            throw new IllegalArgumentException("Minute must be between 0 and 120.");
+            throw new IllegalArgumentException("Minute must be between 0 and 90.");
         }
 
         this.player = player;
