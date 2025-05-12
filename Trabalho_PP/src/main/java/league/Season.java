@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class Season implements ISeason {
 
-    private static final int MAX_TEAMS = 20;
+    private static final int MAX_TEAMS = 18;
     private static final int MAX_MATCHES = MAX_TEAMS * (MAX_TEAMS - 1);
     private static final int POINTS_PER_WIN = 3;
     private static final int POINTS_PER_DRAW = 1;
@@ -137,15 +137,15 @@ public class Season implements ISeason {
     @Override
     public void simulateRound() {
         if (clubCount == 0) {
-            throw new IllegalStateException("Cannot simulate round: the league is empty.");
+            throw new IllegalStateException("League is empty.");
         }
 
         if (matchCount == 0) {
-            throw new IllegalStateException("Cannot simulate round: the schedule has not been generated.");
+            throw new IllegalStateException("No matches scheduled.");
         }
 
         if (simulator == null) {
-            throw new IllegalStateException("Match simulator strategy is not set.");
+            throw new IllegalStateException("Match simulator strategy isn't set.");
         }
 
         for (int i = 0; i < matchCount; i++) {
@@ -163,11 +163,11 @@ public class Season implements ISeason {
     @Override
     public void simulateSeason() {
         if (clubCount == 0) {
-            throw new IllegalStateException("Cannot simulate season: the league is empty.");
+            throw new IllegalStateException("League is empty.");
         }
 
         if (matchCount == 0) {
-            throw new IllegalStateException("Cannot simulate season: the league is not scheduled.");
+            throw new IllegalStateException("League is not scheduled");
         }
 
         while (!isSeasonComplete()) {
@@ -224,7 +224,7 @@ public class Season implements ISeason {
     @Override
     public int getPointsPerWin() {
         if (simulator == null) {
-            throw new IllegalStateException("Match simulator is not initialized.");
+            throw new IllegalStateException("Match simulator isn't initialized.");
         }
         return POINTS_PER_WIN;
     }
@@ -232,7 +232,7 @@ public class Season implements ISeason {
     @Override
     public int getPointsPerDraw() {
         if (simulator == null) {
-            throw new IllegalStateException("Match simulator is not initialized.");
+            throw new IllegalStateException("Match simulator isn't initialized.");
         }
         return POINTS_PER_DRAW;
     }
@@ -240,7 +240,7 @@ public class Season implements ISeason {
     @Override
     public int getPointsPerLoss() {
         if (simulator == null) {
-            throw new IllegalStateException("Match simulator is not initialized.");
+            throw new IllegalStateException("Match simulator isn't initialized.");
         }
         return POINTS_PER_LOSS;
     }

@@ -83,17 +83,17 @@ public class Standing implements IStanding {
 
     @Override
     public int getGoalDifference() {
-        return goalsScored - goalsConceded;
+        return this.goalsScored - this.goalsConceded;
     }
 
     @Override
     public int getPoints() {
-        return points;
+        return this.points;
     }
 
     @Override
     public int getTotalMatches() {
-        return wins + draws + losses;
+        return this.wins + this.draws + this.losses;
     }
 
     @Override

@@ -36,7 +36,7 @@ public class Club implements IClub {
             throw new IllegalStateException("Maximum number of players reached.");
         }
         if (player == null) {
-            throw new IllegalArgumentException("Player cannot be null.");
+            throw new IllegalArgumentException("Player can't be null.");
         }
         if (isPlayer(player)) {
             throw new IllegalArgumentException("Player already exists in the club.");
@@ -49,7 +49,7 @@ public class Club implements IClub {
         int index = this.findPlayerIndex(player);
 
         if (index == -1) {
-            throw new IllegalArgumentException("Player is not in the club.");
+            throw new IllegalArgumentException("Player isn't in the club.");
         }
 
         if (player == null) {
@@ -75,11 +75,11 @@ public class Club implements IClub {
     @Override
     public boolean isPlayer(IPlayer player) {
         if (player == null) {
-            throw new IllegalArgumentException("Player cannot be null.");
+            throw new IllegalArgumentException("Player can't be null.");
         }
 
         if (player.getName() == null || player.getName().isEmpty()) {
-            throw new IllegalArgumentException("Invalid player: name is missing.");
+            throw new IllegalArgumentException("Invalid player.. name is missing.");
         }
 
         for (int i = 0; i < this.playerCount; i++) {
