@@ -21,10 +21,10 @@ public class Team implements ITeam {
 
     public Team(IClub club, IFormation formation) {
         if (club == null) {
-            throw new IllegalArgumentException("Club cannot be null.");
+            throw new IllegalArgumentException("Club can't be null.");
         }
         if (formation == null) {
-            throw new IllegalArgumentException("Formation cannot be null.");
+            throw new IllegalArgumentException("Formation can't be null.");
         }
         this.club = club;
         this.formation = formation;
@@ -40,7 +40,7 @@ public class Team implements ITeam {
     @Override
     public IFormation getFormation() {
         if (formation == null) {
-            throw new IllegalStateException("Formation is not set.");
+            throw new IllegalStateException("Formation isn't set.");
         }
         return this.formation;
     }
@@ -48,7 +48,7 @@ public class Team implements ITeam {
     @Override
     public void setFormation(IFormation formation) {
         if (formation == null) {
-            throw new IllegalArgumentException("Formation cannot be null.");
+            throw new IllegalArgumentException("Formation can't be null.");
         }
         this.formation = formation;
     }
@@ -65,7 +65,7 @@ public class Team implements ITeam {
     @Override
     public void addPlayer(IPlayer player) {
         if (player == null) {
-            throw new IllegalArgumentException("Player cannot be null.");
+            throw new IllegalArgumentException("Player can't be null.");
         }
 
         if (playerCount >= MAX_PLAYERS) {
@@ -77,10 +77,10 @@ public class Team implements ITeam {
             }
         }
         if (!club.isPlayer(player)) {
-            throw new IllegalStateException("Player does not belong to the team.");
+            throw new IllegalStateException("Player doesn't belongs to the team.");
         }
         if (formation == null) {
-            throw new IllegalStateException("Formation is not set.");
+            throw new IllegalStateException("Formation isn't set.");
         }
         players[playerCount++] = player;
     }
@@ -88,7 +88,7 @@ public class Team implements ITeam {
     @Override
     public int getPositionCount(IPlayerPosition position) {
         if (position == null) {
-            throw new IllegalArgumentException("Position cannot be null.");
+            throw new IllegalArgumentException("Position can't be null.");
         }
         int count = 0;
         for (int i = 0; i < playerCount; i++) {

@@ -10,7 +10,7 @@ public class PlayerSelector implements IPlayerSelector {
     @Override
     public IPlayer selectPlayer(IClub club, IPlayerPosition position) {
         if (club == null || position == null) {
-            throw new IllegalArgumentException("Club and position must not be null.");
+            throw new IllegalArgumentException("Club and position can't be null.");
         }
 
         IPlayer[] players = club.getPlayers();
