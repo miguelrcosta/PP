@@ -39,6 +39,6 @@ public class GoalEvent implements IGoalEvent {
 
     @Override
     public void exportToJson() throws IOException {
-        // Optional: implement serialization logic here
+        // Implementar mais tarde
     }
 }

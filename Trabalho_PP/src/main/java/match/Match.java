@@ -84,7 +84,7 @@ public class Match implements IMatch {
         } else if (awayGoals > homeGoals) {
             return awayTeam;
         } else {
-            return null; // empate
+            return null; // Caso de empate
         }
     }
 
