@@ -22,13 +22,13 @@ public class Match implements IMatch {
 
     @Override
     public IClub getHomeClub() {
-        if (homeClub == null) throw new IllegalStateException("Home club is not initialized.");
+        if (homeClub == null) throw new IllegalStateException("Home club isn't initialized.");
         return homeClub;
     }
 
     @Override
     public IClub getAwayClub() {
-        if (awayClub == null) throw new IllegalStateException("Away club is not initialized.");
+        if (awayClub == null) throw new IllegalStateException("Away club isn't initialized.");
         return awayClub;
     }
 
@@ -39,13 +39,13 @@ public class Match implements IMatch {
 
     @Override
     public ITeam getHomeTeam() {
-        if (homeTeam == null) throw new IllegalStateException("Home team is not initialized.");
+        if (homeTeam == null) throw new IllegalStateException("Home team isn't initialized.");
         return homeTeam;
     }
 
     @Override
     public ITeam getAwayTeam() {
-        if (awayTeam == null) throw new IllegalStateException("Away team is not initialized.");
+        if (awayTeam == null) throw new IllegalStateException("Away team isn't initialized.");
         return awayTeam;
     }
 
@@ -56,7 +56,7 @@ public class Match implements IMatch {
 
     @Override
     public int getTotalByEvent(Class eventClass, IClub team) {
-        if (eventClass == null || team == null) throw new IllegalArgumentException("Event class and team cannot be null.");
+        if (eventClass == null || team == null) throw new IllegalArgumentException("Event class and team can't be null.");
 
         int count = 0;
         for (int i = 0; i < eventCount; i++) {
@@ -95,8 +95,8 @@ public class Match implements IMatch {
 
     @Override
     public void setTeam(ITeam team) {
-        if (team == null) throw new IllegalArgumentException("Team cannot be null.");
-        if (played) throw new IllegalStateException("Cannot set team after match is played.");
+        if (team == null) throw new IllegalArgumentException("Team can't be null.");
+        if (played) throw new IllegalStateException("Can't set team after match is played.");
         if (homeTeam == null) {
             homeTeam = team;
             homeClub = team.getClub();
@@ -114,7 +114,7 @@ public class Match implements IMatch {
 
     @Override
     public void addEvent(IEvent event) {
-        if (event == null) throw new IllegalArgumentException("Event cannot be null.");
+        if (event == null) throw new IllegalArgumentException("Event can't be null.");
         if (eventCount >= MAX_EVENTS) {
             throw new IllegalStateException("Maximum number of events reached.");
         }
