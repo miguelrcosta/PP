@@ -1,15 +1,12 @@
 package player;
 
-//atoa
-
-import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
 import com.ppstudios.footballmanager.api.contracts.player.IPlayerPosition;
 import com.ppstudios.footballmanager.api.contracts.player.PreferredFoot;
 
 import java.io.IOException;
 import java.time.LocalDate;
 
-public class Player implements IPlayer {
+public class Player implements IGoalKeeper {
     private int age;
     private LocalDate birthDate;
     private float height;
@@ -24,8 +21,11 @@ public class Player implements IPlayer {
     private int speed;
     private int stamina;
     private float weight;
+    private int reflexes;
+    private int diving;
+    private int handling;
 
-    public Player(int age, LocalDate birthDate, float height, String name, String nationality, int number, int passing, String photo, IPlayerPosition position, PreferredFoot preferredFoot, int shooting, int speed, int stamina, float weight) {
+    public Player(int age, LocalDate birthDate, float height, String name, String nationality, int number, int passing, String photo, IPlayerPosition position, PreferredFoot preferredFoot, int shooting, int speed, int stamina, float weight, int reflexes, int diving, int handling) {
         this.age = age;
         this.birthDate = birthDate;
         this.height = height;
@@ -40,6 +40,9 @@ public class Player implements IPlayer {
         this.speed = speed;
         this.stamina = stamina;
         this.weight = weight;
+        this.reflexes = reflexes;
+        this.diving = diving;
+        this.handling = handling;
     }
 
     @Override
@@ -113,6 +116,18 @@ public class Player implements IPlayer {
     @Override
     public float getWeight() {
         return this.weight;
+    }
+
+    public int getReflexes() {
+        return this.reflexes;
+    }
+
+    public int getDiving() {
+        return this.diving;
+    }
+
+    public int getHandling() {
+        return this.handling;
     }
 
     @Override

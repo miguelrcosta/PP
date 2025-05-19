@@ -6,6 +6,7 @@ import com.ppstudios.footballmanager.api.contracts.league.ISchedule;
 import com.ppstudios.footballmanager.api.contracts.match.IMatch;
 import com.ppstudios.footballmanager.api.contracts.simulation.MatchSimulatorStrategy;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
+import com.ppstudios.footballmanager.api.contracts.team.ITeam;
 import match.Match;
 
 import java.io.IOException;
@@ -213,8 +214,60 @@ public class Season implements ISeason {
 
     @Override
     public IStanding[] getLeagueStandings() {
-        return new IStanding[0];
+        Standing[] standings = new Standing[clubCount];
+        int count = 0;
+
+        for (int i = 0; i < matchCount; i++) {
+            IMatch match = matches[i];
+            if (!match.isPlayed()) continue;
+
+            ITeam home = match.getHomeTeam();
+            ITeam away = match.getAwayTeam();
+
+            Standing homeStanding = null;
+            Standing awayStanding = null;
+
+            // Verifica se já existe uma Standing para as equipas
+            for (int j = 0; j < count; j++) {
+                if (standings[j].getTeam().equals(home)) homeStanding = standings[j];
+                if (standings[j].getTeam().equals(away)) awayStanding = standings[j];
+            }
+
+            // Se ainda não existir, criar nova
+            if (homeStanding == null) {
+                homeStanding = new Standing(home);
+                standings[count++] = homeStanding;
+            }
+            if (awayStanding == null) {
+                awayStanding = new Standing(away);
+                standings[count++] = awayStanding;
+            }
+
+            int homeGoals = match.getTotalByEvent(com.ppstudios.footballmanager.api.contracts.event.IGoalEvent.class, match.getHomeClub());
+            int awayGoals = match.getTotalByEvent(com.ppstudios.footballmanager.api.contracts.event.IGoalEvent.class, match.getAwayClub());
+
+            homeStanding.setGoals(homeGoals, awayGoals);
+            awayStanding.setGoals(awayGoals, homeGoals);
+
+            if (homeGoals > awayGoals) {
+                homeStanding.addWin(getPointsPerWin());
+                awayStanding.addLoss(getPointsPerLoss());
+            } else if (awayGoals > homeGoals) {
+                awayStanding.addWin(getPointsPerWin());
+                homeStanding.addLoss(getPointsPerLoss());
+            } else {
+                homeStanding.addDraw(getPointsPerDraw());
+                awayStanding.addDraw(getPointsPerDraw());
+            }
+        }
+
+        IStanding[] result = new IStanding[count];
+        for (int i = 0; i < count; i++) {
+            result[i] = standings[i];
+        }
+        return result;
     }
+
 
     @Override
     public ISchedule getSchedule() {
